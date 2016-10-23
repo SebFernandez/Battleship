@@ -6,4 +6,4 @@ First of all, I wanted to have the game running. The next step is to set up an A
 
 EDIT 23/10/16: 
 * Many bugs had been solved. Basics of AI had been implemented for completing the board. 
-* Next step is to set the AI to play agains a human.
+* Next step is to set the AI to play against a human.
