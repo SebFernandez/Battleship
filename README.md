@@ -1,4 +1,4 @@
-# Battleship 
+### Battleship 
 
 Might be with bugs, I will check soon if there are serious bugs. I'm not with much time and to be constant with the code has been difficult.
 
