@@ -4,6 +4,12 @@ First big project for me. The task is to code a battleship that can be played by
 
 May be with bugs, I don't have much time to be constant due to the University, if any suggestions appear I will apreciate it.
 
+- [X] Menu.
+- [X] Have two boards filled without problems.
+- [X] Ready to play PVP.
+- [ ] AI fills the board.
+- [ ] Ready to play PVC.
+
 EDIT 23/10/16: 
 * Many bugs had been solved. Basics of AI had been implemented for completing the board. 
 * Next step is to set the AI to play against a human.
