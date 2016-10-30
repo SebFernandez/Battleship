@@ -10,4 +10,4 @@ EDIT 23/10/16:
 
 EDIT 29/10/16:
 * Function of checking for ships sinked is running.
-* **You can play PVP (Player vs Player) now.** :smile:
+* **You can play PVP (Player vs Player) now.** 
