@@ -1,6 +1,6 @@
 # Battleship 
 
-First big project for me. The task is to code a battleship that can be played by two players or setting an AI which plays agains a player.
+First big project for me. The task is to code a battleship that can be played by two players or setting an AI which plays against a player.
 
 May be with bugs, I don't have much time to be constant due to the University, if any suggestions appear I will apreciate it.
 
