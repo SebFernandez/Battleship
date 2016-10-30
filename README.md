@@ -1,8 +1,8 @@
 # Battleship 
 
-Might be with bugs, I will check soon if there are serious bugs. I'm not with much time and to be constant with the code has been difficult.
+First big project for me. The task is to code a battleship that can be played by two players or setting an AI which plays agains a player.
 
-First of all, I wanted to have the game running. The next step is to set up an AI, just very simple.
+May be with bugs, I don't have much time to be constant due to the University, if any suggestions appear I will apreciate it.
 
 EDIT 23/10/16: 
 * Many bugs had been solved. Basics of AI had been implemented for completing the board. 
