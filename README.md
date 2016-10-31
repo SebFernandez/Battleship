@@ -7,8 +7,9 @@ May be with bugs, I don't have much time to be constant due to the University, i
 - [X] Menu.
 - [X] Have two boards filled without problems.
 - [X] Ready to play PVP.
-- [ ] AI fills the board.
+- [X] AI fills the board.
 - [ ] Ready to play PVC.
+- [ ] Ready to spectate CVC.
 
 EDIT 23/10/16: 
 * Many bugs had been solved. Basics of AI had been implemented for completing the board. 
@@ -17,3 +18,6 @@ EDIT 23/10/16:
 EDIT 29/10/16:
 * Function of checking for ships sinked is running.
 * **You can play PVP (Player vs Player) now.** 
+
+EDIT 30/10/16:
+* Added CPU vs CPU, the function of filling the board for both AI runs but there is a big bug for the function of the game, I didn't found the bug yet.
