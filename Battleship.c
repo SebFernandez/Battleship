@@ -78,7 +78,7 @@ int main (int argc, char* argv[])	{
 		{
 			fflush (stdin);
 			SetColor (WHITE);
-			printf ("\n\n\t\tDo you want to play again? (Y/N): ");
+			printf ("\n\n\t\tDo you want to play again ? (Y/N): ");
 			scanf ("%c", &D);
 			tolower (D);
 		} while ((D != 'y') && (D != 'n'));
