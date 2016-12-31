@@ -56,6 +56,7 @@ int main (int argc, char* argv[])	{
 			}
 		}
 		M = MENU ();
+		srand(time(NULL));
 		switch (M)	{
 			case 1:
 				FILL_PVP (M_N1, M_N2);
@@ -274,7 +275,7 @@ int WATER (int m_n1 [10][10], int m_n2 [10][10], int A, int B, int C, int D, int
 int SHOT (int m_n1 [10][10], int m_n2 [10][10], int T, int i, int j)	{
 	if (T % 2 == 0)	{
 		if (((m_n2 [i][j] >= 2) && (m_n2 [i][j] <= 5)) || (m_n2 [i][j] == 0)) {
-			if ((i >= 0) && (i <= 9) && (j >= 0) && (j <= 9))	{
+			if ((i >= 0) && (i <= 10) && (j >= 0) && (j <= 10))	{
 				return 1;
 			}
 		}	else	{
@@ -282,7 +283,7 @@ int SHOT (int m_n1 [10][10], int m_n2 [10][10], int T, int i, int j)	{
 		}
 	}	else	{
 		if (((m_n1 [i][j] >= 2) && (m_n1 [i][j] <= 5)) || (m_n1 [i][j] == 0))	{
-			if ((i >= 0) && (i <= 9) && (j >= 0) && (j <= 9)){
+			if ((i >= 0) && (i <= 10) && (j >= 0) && (j <= 10)){
 				return 1;
 			}
 		}	else	{
@@ -534,8 +535,6 @@ void FILL_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 	strcpy (S[2].N_SHIP, "Cruiser");
 	strcpy (S[3].N_SHIP, "Submarine");
 
-	srand(time(NULL));
-
 	while (fill < 2)	{
 		for (i = 0; i < 4; i++)	{
 			do	{
@@ -595,10 +594,11 @@ void FILL_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 			SHOW1 (m_n1, m_n2, fill);			
 		}
 		system ("cls");
+		/*
 		SetColor (RED);
 		printf ("\n\n\n\n\t\t\tLoading...");
 		sleep (3);
-		
+		*/
 		fill++;	
 	}
 }
@@ -617,8 +617,6 @@ void FILL_CVC (int m_n1 [10][10], int m_n2 [10][10])	{
 	strcpy (S[1].N_SHIP, "Battleship");
 	strcpy (S[2].N_SHIP, "Cruiser");
 	strcpy (S[3].N_SHIP, "Submarine");
-
-	srand(time(NULL));
 
 	while (fill < 2)	{
 		for (i = 0; i < 4; i++)	{
@@ -823,7 +821,7 @@ void GAME_PVP (int m_n1 [10][10],int m_n2 [10][10])	{
 			printf ("\tColumn: ");
 			scanf ("%d", &x);
 
-			if (((y > 1) || (y < 10)) && ((x > 1) || (x < 10)))	{
+			if (((y >= 1) || (y <= 10)) && ((x >= 1) || (x <= 10)))	{
 				y--;
 				x--;
 			}
@@ -899,25 +897,20 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 				printf ("\tColumn: ");
 				scanf ("%d", &x);
 
-				if (((y > 1) || (y < 10)) && ((x > 1) || (x < 10)))	{
+				if (((y >= 1) || (y <= 10)) && ((x >= 1) || (x <= 10)))	{
 					y--;
 					x--;
 				}
 			} while (SHOT (m_n1, m_n2, TURN, y, x) == 0);
 		}	else	{
 			U++;
-			flag = 1;										//flag for 'do while', i'm fed up with that loop
-			if (flagM == -1)	{							//flagM = -1 ---> No ship discovered
-				do {
+			flag = 0;																									
+			if (flagM == -1)	{																	//flagM = -1 ---> No ship discovered
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);
 					SetColor (WHITE);
-					xA = rand () % 10;						//Search with parity
-					yA = rand () % 10;
-					if ((xA % 2 == 0) && (yA % 2 == 0))	{
-						flag = 0;
-					}
-				} while ((flag == 1) && (SHOT (m_n1, m_n2, TURN, yA, xA) == 0));
+					xA = ((rand () % 6) * 2) - 1;
+					yA = ((rand () % 6) * 2) - 1;
 			}	else {										
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);										
@@ -927,57 +920,13 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 						yA = yA1;
 					}
 				if (flagH == 0)	{							//flagH = 0 ---> Down
-					if (SHOT (m_n1, m_n2, TURN, yA, xA++) == 1)	{									//If SHOT returns 0, the else statement will shot to the following position
-						xA++;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA, xA--) == 1)	{
-						xA--;
-						flagH++;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA--, xA) == 1)	{
-						yA--;
-						flagH++;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA++, xA) == 1)	{
-						yA++;
-						flagH++;
-					}
+					xA++;
 			}	else if (flagH == 1)	{					//flagH = 1 ---> Up
-					if (SHOT (m_n1, m_n2, TURN, yA, xA--) == 1)	{
-						xA--;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA--, xA) == 1)	{
-						yA--;
-						flagH++;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA++, xA) == 1)	{
-						yA++;
-						flagH++;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA, xA++) == 1)	{
-						xA++;
-						flagH = 0;
-					}
+					xA--;
 			}	else if (flagH == 2)	{					//flagH = 2 ---> Left
-					if (SHOT (m_n1, m_n2, TURN, yA--, xA) == 1)	{
-						yA--;	
-					}	else if (SHOT (m_n1, m_n2, TURN, yA++, xA) == 1)	{
-						flagH++;
-						yA++;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA, xA++) == 1)	{
-						xA++;
-						flagH = 0;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA, xA--) == 1)	{
-						xA--;
-						flagH++;
-					}
+					yA--;	
 			}	else if (flagH == 3)	{					//flagH = 3 ---> Right
-					if (SHOT (m_n1, m_n2, TURN, yA++, xA) == 1)	{
-						yA++;	
-					}	else if (SHOT (m_n1, m_n2, TURN, yA, xA++) == 1)	{
-						xA++;
-						flagH = 0;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA, xA--) == 1)	{
-						xA--;
-						flagH++;
-					}	else if (SHOT (m_n1, m_n2, TURN, yA--, xA) == 1)	{
-						yA--;
-						flagH++;
-					}
+					yA++;	
 				}
 			}
 		}
