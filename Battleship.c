@@ -273,22 +273,26 @@ int WATER (int m_n1 [10][10], int m_n2 [10][10], int A, int B, int C, int D, int
 }
 
 int SHOT (int m_n1 [10][10], int m_n2 [10][10], int T, int i, int j)	{
-	if (T % 2 == 0)	{
-		if (((m_n2 [i][j] >= 2) && (m_n2 [i][j] <= 5)) || (m_n2 [i][j] == 0)) {
-			if ((i >= 0) && (i <= 10) && (j >= 0) && (j <= 10))	{
-				return 1;
+	if ((i >=0) && (i <= 9) && (j >=0) && (j <= 9))	{ 
+		if (T % 2 == 0)	{
+			if (((m_n2 [i][j] >= 2) && (m_n2 [i][j] <= 5)) || (m_n2 [i][j] == 0)) {
+				if ((i >= 0) && (i <= 10) && (j >= 0) && (j <= 10))	{
+					return 1;
+				}
+			}	else	{
+				return 0;
 			}
 		}	else	{
-			return 0;
+			if (((m_n1 [i][j] >= 2) && (m_n1 [i][j] <= 5)) || (m_n1 [i][j] == 0))	{
+				if ((i >= 0) && (i <= 10) && (j >= 0) && (j <= 10)){
+					return 1;
+				}
+			}	else	{
+				return 0;
+			}
 		}
 	}	else	{
-		if (((m_n1 [i][j] >= 2) && (m_n1 [i][j] <= 5)) || (m_n1 [i][j] == 0))	{
-			if ((i >= 0) && (i <= 10) && (j >= 0) && (j <= 10)){
-				return 1;
-			}
-		}	else	{
-			return 0;
-		}
+		return 0;
 	}
 }
 
@@ -909,8 +913,9 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);
 					SetColor (WHITE);
-					xA = ((rand () % 6) * 2) - 1;
-					yA = ((rand () % 6) * 2) - 1;
+					srand(time(NULL));
+					xA = (rand () % 10); //* 2;
+					yA = (rand () % 10); //* 2;
 			}	else {										
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);										
@@ -948,13 +953,12 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 					yA1 = yA;
 					size = m_n1 [yA][xA];
 				}
-				if (m_n1 [yA][xA] != size)	{							//If it shoots another ship this will set the IA to focus on the fist ship shot
-					flagH++;
-				}
 				m_n1 [yA][xA] *= -1;
 			}	else if (m_n1 [yA][xA] == 0)	{
 				m_n1 [yA][xA] = 1;
-				flagH++;
+				if (flagM == 1)	{
+					flagH++;
+				}
 				CH = 0;
 				if (flagH == 4)	{
 					flagH = 0;
@@ -980,9 +984,7 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 		SHOW2 (m_n1, m_n2, TURN+1);
 		SetColor (YELLOW);
 		printf ("\t\t\tCHECK YOUR SHOT\n\n");
-		if (TURN % 2 != 0)	{
-			printf ("\tyA: %d\txA: %d\tLoop: :%d\tHit: %d\tMovement: %d", yA+1, xA+1, U, flagH, flagM);					//This print is for checking random numbers shots
-		}
+		printf ("\tLine: %d\tCol: %d\tLoop: :%d\tHit: %d\tMovement: %d", yA+1, xA+1, U, flagH, flagM);					//This print is for checking random numbers shots
 		SetColor (YELLOW);
 		sleep (3);
 		TURN ++;
