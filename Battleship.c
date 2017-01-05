@@ -19,6 +19,11 @@ typedef struct	{
 	int SIZE;
 }	SHIP;
 
+typedef struct {
+	int X;
+	int Y;
+}	POS;
+
 HANDLE wHnd;
 HANDLE rHnd;
 
@@ -886,9 +891,10 @@ void GAME_PVP (int m_n1 [10][10],int m_n2 [10][10])	{
 }
 
 void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
-	int TURN = 0, y, x, PLAYER = 0, i = 0, j = 0, P1 = 0, P2 = 0, flag = 1;
+	int TURN = 0, y, x, PLAYER = 0, i = 0, j = 0, P1 = 0, P2 = 0, flag = 1, countShip;
 	int flagM = -1, flagH = 0, xA, yA, xA1, yA1, U = 0, CH = 0, size;				
-													//CH --> Allos the re-assign of the original positions
+	POS ships [5] = {0};							//CH --> Allos the re-assign of the original positions
+	
 	while (PLAYER == 0)	{							//xA and yA pos from AI										//xA1 and yA1 original pos if there was a hit
 		if (TURN % 2 == 0)	{
 			do {
@@ -946,20 +952,27 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 		}	else	{
 			if ((m_n1 [yA][xA] >= 2) && (m_n1 [yA][xA] <= 5)) 	{
 				P1--;													//Size is for controlling the ship which is shooting and if they are beside
-				CH++;
 				if (flagM == -1)	{
 					flagM = 1;
 					xA1 = xA;
 					yA1 = yA;
-					size = m_n1 [yA][xA];
+					size = m_n1 [yA1][xA1];
+					ships [size].X = xA1;
+					ships [size].Y = yA1;
 				}
+				if (m_n1 [yA][xA] != m_n1 [yA1][xA1])	{
+					ships [size].X = xA;
+					ships [size].Y = yA;
+					xA = xA1;
+					yA = yA1;
+					flagH++;
+				}	
 				m_n1 [yA][xA] *= -1;
 			}	else if (m_n1 [yA][xA] == 0)	{
 				m_n1 [yA][xA] = 1;
 				if (flagM == 1)	{
 					flagH++;
 				}
-				CH = 0;
 				if (flagH == 4)	{
 					flagH = 0;
 				}
@@ -975,9 +988,28 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 		SINK (m_n1, m_n2, TURN);
 
 		if (m_n1 [yA][xA] == -10)	{
-			flagM = -1;
+			ships [size].X = 0;
+			ships [size].Y = 0;
+			countShip = 0;
+			for (i = 0; i < 4; i++)	{
+				if ((ships [i].X != 0) && (ships [i].Y != 0))	{
+					countShip++;
+				}
+			}
+			if (countShip != 0)	{
+				for (i = 0; i < 4; i++)	{
+					if ((ships [i].X != 0) && (ships [i].Y != 0))	{
+						xA = ships [i].X;
+						xA1 = ships [i].X;
+						yA = ships [i].Y;
+						yA1 = ships [i].Y;
+						i = 5;
+					}
+				}
+			}	else	{
+				flagM = -1;
+			}
 			flagH = 0;
-			CH = 0;
 		}
 
 		system ("cls");
