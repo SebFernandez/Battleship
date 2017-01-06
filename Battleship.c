@@ -914,9 +914,8 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);
 					SetColor (WHITE);
-					srand(time(NULL));
-					xA = ((rand () % 5)*2) + 1; //* 2;
-					yA = ((rand () % 5)*2) + 1; //* 2;
+					xA = ((rand () % 5)*2) + 1; 
+					yA = ((rand () % 5)*2) + 1; 
 			}	else {										
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);										
@@ -1010,6 +1009,7 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 	}
 }
 
+//BUGS EVERYWHERE
 void GAME_CVC (int m_n1 [10][10],int m_n2 [10][10])	{
 	int TURN = 0, y, x, PLAYER = 0, flag = 0, i = 0, j = 0, P1 = 0, P2 = 0;
 	int flagM1 = -1, flagH1 = 0, flagM2 = -1, flagH2 = 0, xA, yA, xB, yB, xA1, yA1, xB1, yB1;				
