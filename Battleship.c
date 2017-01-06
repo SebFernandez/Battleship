@@ -299,8 +299,9 @@ int SHOT (int m_n1 [10][10], int m_n2 [10][10], int T, int i, int j)	{
 void SHOW1 (int m_n1 [10][10], int m_n2 [10][10], int T)	{					//SHOW FILL
 	int i, j;
 	if (T == 0)	{
-		SetColor(WHITE);
+		SetColor(LGREEN);
 		printf ("Player %d.\nW = Water with hit || H = Hit || X = Sink.\n\n", T+1);
+		SetColor (WHITE);
 		printf ("\t");
 		for (i = 0; i < 10; i++)	{
 			printf ("%d\t", i+1);	
@@ -413,7 +414,7 @@ void SHOW2 (int m_n1 [10][10], int m_n2 [10][10], int T)	{					//SHOW GAME
 	}
 }
 
-void SHOW3 (int m_n1 [10][10], int m_n2 [10][10])	{
+void SHOW3 (int m_n1 [10][10], int m_n2 [10][10])	{					//SHOW BOARD OF THE PLAYERS WHEN THE GAME HAS FINISHED
 	int i, j;
 	
 	SetColor(LGREEN);
@@ -914,8 +915,8 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 					SHOW2 (m_n1, m_n2, TURN+1);
 					SetColor (WHITE);
 					srand(time(NULL));
-					xA = (rand () % 10); //* 2;
-					yA = (rand () % 10); //* 2;
+					xA = (rand () % 5)*2; //* 2;
+					yA = (rand () % 5)*2; //* 2;
 			}	else {										
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);										
@@ -1186,5 +1187,3 @@ void GAME_CVC (int m_n1 [10][10],int m_n2 [10][10])	{
 		sleep (3);
 	}
 }
-
-//Realizar función GAME_PVC.
