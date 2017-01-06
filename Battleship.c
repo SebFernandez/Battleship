@@ -19,11 +19,6 @@ typedef struct	{
 	int SIZE;
 }	SHIP;
 
-typedef struct {
-	int X;
-	int Y;
-}	POS;
-
 HANDLE wHnd;
 HANDLE rHnd;
 
@@ -304,8 +299,9 @@ int SHOT (int m_n1 [10][10], int m_n2 [10][10], int T, int i, int j)	{
 void SHOW1 (int m_n1 [10][10], int m_n2 [10][10], int T)	{					//SHOW FILL
 	int i, j;
 	if (T == 0)	{
-		SetColor(WHITE);
+		SetColor(LGREEN);
 		printf ("Player %d.\nW = Water with hit || H = Hit || X = Sink.\n\n", T+1);
+		SetColor (WHITE);
 		printf ("\t");
 		for (i = 0; i < 10; i++)	{
 			printf ("%d\t", i+1);	
@@ -418,7 +414,7 @@ void SHOW2 (int m_n1 [10][10], int m_n2 [10][10], int T)	{					//SHOW GAME
 	}
 }
 
-void SHOW3 (int m_n1 [10][10], int m_n2 [10][10])	{
+void SHOW3 (int m_n1 [10][10], int m_n2 [10][10])	{					//SHOW BOARD OF THE PLAYERS WHEN THE GAME HAS FINISHED
 	int i, j;
 	
 	SetColor(LGREEN);
@@ -891,10 +887,9 @@ void GAME_PVP (int m_n1 [10][10],int m_n2 [10][10])	{
 }
 
 void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
-	int TURN = 0, y, x, PLAYER = 0, i = 0, j = 0, P1 = 0, P2 = 0, flag = 1, countShip;
+	int TURN = 0, y, x, PLAYER = 0, i = 0, j = 0, P1 = 0, P2 = 0, flag = 1;
 	int flagM = -1, flagH = 0, xA, yA, xA1, yA1, U = 0, CH = 0, size;				
-	POS ships [5] = {0};							//CH --> Allos the re-assign of the original positions
-	
+													//CH --> Allos the re-assign of the original positions
 	while (PLAYER == 0)	{							//xA and yA pos from AI										//xA1 and yA1 original pos if there was a hit
 		if (TURN % 2 == 0)	{
 			do {
@@ -920,8 +915,8 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 					SHOW2 (m_n1, m_n2, TURN+1);
 					SetColor (WHITE);
 					srand(time(NULL));
-					xA = (rand () % 10); //* 2;
-					yA = (rand () % 10); //* 2;
+					xA = (rand () % 5)*2; //* 2;
+					yA = (rand () % 5)*2; //* 2;
 			}	else {										
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);										
@@ -952,27 +947,20 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 		}	else	{
 			if ((m_n1 [yA][xA] >= 2) && (m_n1 [yA][xA] <= 5)) 	{
 				P1--;													//Size is for controlling the ship which is shooting and if they are beside
+				CH++;
 				if (flagM == -1)	{
 					flagM = 1;
 					xA1 = xA;
 					yA1 = yA;
-					size = m_n1 [yA1][xA1];
-					ships [size].X = xA1;
-					ships [size].Y = yA1;
+					size = m_n1 [yA][xA];
 				}
-				if (m_n1 [yA][xA] != m_n1 [yA1][xA1])	{
-					ships [size].X = xA;
-					ships [size].Y = yA;
-					xA = xA1;
-					yA = yA1;
-					flagH++;
-				}	
 				m_n1 [yA][xA] *= -1;
 			}	else if (m_n1 [yA][xA] == 0)	{
 				m_n1 [yA][xA] = 1;
 				if (flagM == 1)	{
 					flagH++;
 				}
+				CH = 0;
 				if (flagH == 4)	{
 					flagH = 0;
 				}
@@ -988,28 +976,9 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 		SINK (m_n1, m_n2, TURN);
 
 		if (m_n1 [yA][xA] == -10)	{
-			ships [size].X = 0;
-			ships [size].Y = 0;
-			countShip = 0;
-			for (i = 0; i < 4; i++)	{
-				if ((ships [i].X != 0) && (ships [i].Y != 0))	{
-					countShip++;
-				}
-			}
-			if (countShip != 0)	{
-				for (i = 0; i < 4; i++)	{
-					if ((ships [i].X != 0) && (ships [i].Y != 0))	{
-						xA = ships [i].X;
-						xA1 = ships [i].X;
-						yA = ships [i].Y;
-						yA1 = ships [i].Y;
-						i = 5;
-					}
-				}
-			}	else	{
-				flagM = -1;
-			}
+			flagM = -1;
 			flagH = 0;
+			CH = 0;
 		}
 
 		system ("cls");
@@ -1218,5 +1187,3 @@ void GAME_CVC (int m_n1 [10][10],int m_n2 [10][10])	{
 		sleep (3);
 	}
 }
-
-//Realizar función GAME_PVC.
