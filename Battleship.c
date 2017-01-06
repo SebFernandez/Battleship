@@ -915,8 +915,8 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 					SHOW2 (m_n1, m_n2, TURN+1);
 					SetColor (WHITE);
 					srand(time(NULL));
-					xA = (rand () % 5)*2; //* 2;
-					yA = (rand () % 5)*2; //* 2;
+					xA = ((rand () % 5)*2) + 1; //* 2;
+					yA = ((rand () % 5)*2) + 1; //* 2;
 			}	else {										
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);										
