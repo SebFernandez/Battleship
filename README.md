@@ -21,3 +21,6 @@ EDIT 29/10/16:
 
 EDIT 30/10/16:
 * Added CPU vs CPU, the function of filling the board for both AI runs but there is a big bug for the function of the game, I didn't found the bug yet.
+
+EDIT 9/1/17:
+* There are some details to fix but the Battleship is playable now!
