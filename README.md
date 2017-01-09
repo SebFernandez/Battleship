@@ -8,7 +8,7 @@ May be with bugs, I don't have much time to be constant due to the University, i
 - [X] Have two boards filled without problems.
 - [X] Ready to play PVP.
 - [X] AI fills the board.
-- [X] Ready to play PVC --> [On this commit!](https://github.com/Zeby95/Battleship/blob/abcc909054657340c5f60325ddb82b07636c456f/Battleship.c)
+- [X] Ready to play PVC --> [On this commit! (abcc909)](https://github.com/Zeby95/Battleship/blob/abcc909054657340c5f60325ddb82b07636c456f/Battleship.c)
 - [ ] Ready to spectate CVC.
 
 EDIT 23/10/16: 
