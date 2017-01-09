@@ -914,8 +914,11 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);
 					SetColor (WHITE);
-					xA = ((rand () % 5)*2) + 1; 
-					yA = ((rand () % 5)*2) + 1; 
+					do
+					{
+						xA = ((rand () % 5)*2) + 1; 
+						yA = ((rand () % 5)*2) + 1; 
+					} while (SHOT (m_n1, m_n2, TURN, y, x) == 0);
 			}	else {										
 					system ("cls");
 					SHOW2 (m_n1, m_n2, TURN+1);										
@@ -1011,134 +1014,91 @@ void GAME_PVC (int m_n1 [10][10], int m_n2 [10][10])	{
 
 //BUGS EVERYWHERE
 void GAME_CVC (int m_n1 [10][10],int m_n2 [10][10])	{
-	int TURN = 0, y, x, PLAYER = 0, flag = 0, i = 0, j = 0, P1 = 0, P2 = 0;
+	int TURN = 0, y, x, PLAYER = 0, flag = 0, i = 0, j = 0, P1 = 0, P2 = 0, size;
 	int flagM1 = -1, flagH1 = 0, flagM2 = -1, flagH2 = 0, xA, yA, xB, yB, xA1, yA1, xB1, yB1;				
 
-	while (PLAYER == 0)	{							//xA and yA pos from AI
-		do {										//xA1 and yA1 original pos if there was a hit
-			system ("cls");
-			flag = -1;
-			SHOW2 (m_n1, m_n2, TURN+1);
-			SetColor (WHITE);
-			if (TURN % 2 == 0)	{
-				if (flagM2 == -1)	{							//flagM = -1 ---> No ship discovered
-					xB = rand () % 10;
-					yB = rand () % 10;					
-				}	else if (flagM2 == 0)	{					//flagM = 0 ---> Down
-					if (flagH2 > 0)	{
-						yB++;
-					}	else	{
-						xB1 = xB;
-						yB1 = yB;
-						yB++;
-					}
-				}	else if (flagM2 == 1)	{					//flagM = 1 ---> Up
-					if (flagH2 > 0)	{
-						yB--;
-					}	else	{
-						yB = yB1;
-						yB--;
-					}
-				}	else if (flagM2 == 2)	{					//flagM = 2 ---> Left
-					if (flagH2 > 0)	{
-						xB--;
-					}	else	{
-						xB = xB1;
-						yB = yB1;
-						xB--;
-					}
-				}	else if (flagM2 == 3)	{					//flagM = 3 ---> Right
-					if (flagH2 > 0)	{
-						xB++;
-					}	else	{
-						xB = xB1;
-						yB = yB1;
-						xB++;
-					}
-				}
-			}	else	{
-				if (flagM1 == -1)	{							//flagM = -1 ---> No ship discovered
-					xA = rand () % 10;
-					yA = rand () % 10;					
-				}	else if (flagM1 == 0)	{					//flagM = 0 ---> Down
-					if (flagH1 > 0)	{
-						yA++;
-					}	else	{
-						xA1 = xA;
-						yA1 = yA;
-						yA++;
-					}
-				}	else if (flagM1 == 1)	{					//flagM = 1 ---> Up
-					if (flagH1 > 0)	{
-						yA--;
-					}	else	{
-						yA = yA1;
-						yA--;
-					}
-				}	else if (flagM1 == 2)	{					//flagM = 2 ---> Left
-					if (flagH1 > 0)	{
-						xA--;
-					}	else	{
-						xA = xA1;
-						yA = yA1;
-						xA--;
-					}
-				}	else if (flagM1 == 3)	{					//flagM = 3 ---> Right
-					if (flagH1 > 0)	{
-						xA++;
-					}	else	{
-						xA = xA1;
-						yA = yA1;
-						xA++;
-					}
-				}
-
-				sleep (3);
-			}
-
-			if (TURN % 2 == 0)	{										//CHECK FOR POSITIONS WITH SHOTS
-				if (m_n2 [y][x] != 0)	{
-					flag = 1;
-				}
-			}	else	{
-				if (m_n1 [yA][xA] != 0)	{
-					flag = 1;
+													//CH --> Allos the re-assign of the original positions
+	while (PLAYER == 0)	{							//xA and yA pos from AI										//xA1 and yA1 original pos if there was a hit
+		if (TURN % 2 == 0)	{
+			if (flagM2 == -1)	{																	//flagM = -1 ---> No ship discovered
+					system ("cls");
+					SHOW2 (m_n1, m_n2, TURN+1);
+					SetColor (WHITE);
+					xB = ((rand () % 5)*2) + 1; 
+					yB = ((rand () % 5)*2) + 1; 
+			}	else {										
+					system ("cls");
+					SHOW2 (m_n1, m_n2, TURN+1);										
+					SetColor (WHITE);
+				if (flagH2 == 0)	{						//flagH = 0 ---> Down
+					xB++;
+			}	else if (flagH2 == 1)	{					//flagH = 1 ---> Up
+					xB--;
+			}	else if (flagH2 == 2)	{					//flagH = 2 ---> Left
+					yB--;	
+			}	else if (flagH2 == 3)	{					//flagH = 3 ---> Right
+					yB++;	
 				}
 			}
-		} while (flag == 1);
+		}	else	{																									
+			if (flagM1 == -1)	{																	//flagM = -1 ---> No ship discovered
+					system ("cls");
+					SHOW2 (m_n1, m_n2, TURN+1);
+					SetColor (WHITE);
+					xA = ((rand () % 5)*2) + 1; 
+					yA = ((rand () % 5)*2) + 1; 
+			}	else {										
+					system ("cls");
+					SHOW2 (m_n1, m_n2, TURN+1);										
+					SetColor (WHITE);
+				if (flagH1 == 0)	{						//flagH = 0 ---> Down
+					xA++;
+			}	else if (flagH1 == 1)	{					//flagH = 1 ---> Up
+					xA--;
+			}	else if (flagH1 == 2)	{					//flagH = 2 ---> Left
+					yA--;	
+			}	else if (flagH1 == 3)	{					//flagH = 3 ---> Right
+					yA++;	
+				}
+			}
+		}
 
 		if (TURN % 2 == 0)	{
-			if ((m_n2 [yB][xB] > 1) && (m_n2 [yB][xB] <= 5)) 	{
-				P2--;
-				m_n2 [yB][xB] *= -1;
+			if ((m_n2 [yB][xB] >= 2) && (m_n2 [yB][xB] <= 5)) 	{
+				P2--;													//Size is for controlling the ship which is shooting and if they are beside
 				if (flagM2 == -1)	{
-					flagM2++;										//MULTIPLY POS WITH -1 FOR HITS	
+					flagM2 = 1;
+					xB1 = xB;
+					yB1 = yB;
+					size = m_n2 [yB][xB];
 				}
-				flagH2++;
+				m_n2 [yB][xB] *= -1;
 			}	else if (m_n2 [yB][xB] == 0)	{
-				m_n2 [yB][xB] = 1;															//1 FOR WATER
-				if (flagM2 != -1)	{
-					flagM2++;
-					if (flagM2 == 3)	{
-						flagM2 = 0;
-					}
+				m_n2 [yB][xB] = 1;
+				if (flagM2 == 1)	{
+					flagH2++;
 				}
-			}
+				if (flagH2 == 4)	{
+					flagH2 = 0;
+				}
+			}			
 		}	else	{
-			if ((m_n1 [yA][xA] > 1) && (m_n1 [yA][xA] <= 5)) 	{
-				P1--;
-				m_n1 [yA][xA] *= -1;
+			if ((m_n1 [yA][xA] >= 2) && (m_n1 [yA][xA] <= 5)) 	{
+				P1--;													//Size is for controlling the ship which is shooting and if they are beside
 				if (flagM1 == -1)	{
-					flagM1++;
+					flagM1 = 1;
+					xA1 = xA;
+					yA1 = yA;
+					size = m_n1 [yA][xA];
 				}
-				flagH1++;
+				m_n1 [yA][xA] *= -1;
 			}	else if (m_n1 [yA][xA] == 0)	{
 				m_n1 [yA][xA] = 1;
-				if (flagM1 != -1)	{
-					flagM1++;
-					if (flagM1 == 3)	{
-						flagM1 = 0;
-					}
+				if (flagM1 == 1)	{
+					flagH1++;
+				}
+				if (flagH1 == 4)	{
+					flagH1 = 0;
 				}
 			}			
 		}
@@ -1151,14 +1111,16 @@ void GAME_CVC (int m_n1 [10][10],int m_n2 [10][10])	{
 		
 		SINK (m_n1, m_n2, TURN);
 
-		if (m_n2 [yA][xA] == -10)	{
-			flagM1 = -1;
-			flagH1 = 0;
-		}
-
-		if (m_n1 [yB][xB] == -10)	{
-			flagM2 = -1;
-			flagH2 = 0;
+		if (TURN % 2 == 0)	{
+			if (m_n1 [yA][xA] == -10)	{
+				flagM2 = -1;
+				flagH2 = 0;
+			}
+		}	else	{
+			if (m_n2 [yB][xB] == -10)	{
+				flagM1 = -1;
+				flagH1= 0;
+			}
 		}
 
 		system ("cls");
